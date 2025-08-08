@@ -31,6 +31,12 @@ jobs:
           docker build -t tylerdurham/multi-nginx -f ./nginx/Dockerfile ./nginx
 
       - name: Deploy to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker push tylerdurham/react-test
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push tylerdurham/multi-client
+          docker push tylerdurham/multi-server
+          docker push tylerdurham/multi-worker
+          docker push tylerdurham/multi-nginx
