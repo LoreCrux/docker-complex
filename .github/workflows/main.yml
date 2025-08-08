@@ -25,10 +25,10 @@ jobs:
       - name: Prod build
         working-directory: ./
         run: |
-          docker build -t tylerdurham/multi-client ./client
-          docker build -t tylerdurham/multi-server ./server
-          docker build -t tylerdurham/multi-worker ./worker
-          docker build -t tylerdurham/multi-nginx ./nginx
+          docker build -t tylerdurham/multi-client ./client/Dockerfile
+          docker build -t tylerdurham/multi-server ./server/Dockerfile
+          docker build -t tylerdurham/multi-worker ./worker/Dockerfile
+          docker build -t tylerdurham/multi-nginx ./nginx/Dockerfile
 
       - name: Deploy to Docker Hub
         run: |
