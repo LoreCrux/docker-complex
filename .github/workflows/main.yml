@@ -16,7 +16,7 @@ jobs:
 
       - name: Set up Docker
         run: |
-          docker build -t tylerdurham/react-test -f ./client/Dockerfile.dev .
+          docker build -t tylerdurham/react-test -f ./client/Dockerfile.dev ./client
 
       - name: Run tests
         run: |
