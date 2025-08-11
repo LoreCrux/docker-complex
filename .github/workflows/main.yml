@@ -33,7 +33,7 @@ jobs:
         run: |
           docker build -t $DOCKER_USERNAME/multi-client:latest -f ./client/Dockerfile ./client
           docker build -t $DOCKER_USERNAME/multi-server:latest -f ./server/Dockerfile ./server
-          docker build -t $DOCKER_USERNAME/multi-worker:latest-f ./worker/Dockerfile ./worker
+          docker build -t $DOCKER_USERNAME/multi-worker:latest -f ./worker/Dockerfile ./worker
           docker build -t $DOCKER_USERNAME/multi-nginx:latest -f ./nginx/Dockerfile ./nginx
 
       - name: Deploy to Docker Hub
