@@ -31,10 +31,10 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         working-directory: ./
         run: |
-          docker build -t $DOCKER_USERNAME/multi-client -f ./client/Dockerfile ./client
-          docker build -t $DOCKER_USERNAME/multi-server -f ./server/Dockerfile ./server
-          docker build -t $DOCKER_USERNAME/multi-worker -f ./worker/Dockerfile ./worker
-          docker build -t $DOCKER_USERNAME/multi-nginx -f ./nginx/Dockerfile ./nginx
+          docker build -t $DOCKER_USERNAME/multi-client:latest -f ./client/Dockerfile ./client
+          docker build -t $DOCKER_USERNAME/multi-server:latest -f ./server/Dockerfile ./server
+          docker build -t $DOCKER_USERNAME/multi-worker:latest-f ./worker/Dockerfile ./worker
+          docker build -t $DOCKER_USERNAME/multi-nginx:latest -f ./nginx/Dockerfile ./nginx
 
       - name: Deploy to Docker Hub
         env:
@@ -42,7 +42,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $DOCKER_USERNAME/multi-client
-          docker push $DOCKER_USERNAME/multi-server
-          docker push $DOCKER_USERNAME/multi-worker
-          docker push $DOCKER_USERNAME/multi-nginx
+          docker push $DOCKER_USERNAME/multi-client:latest
+          docker push $DOCKER_USERNAME/multi-server:latest
+          docker push $DOCKER_USERNAME/multi-worker:latest
+          docker push $DOCKER_USERNAME/multi-nginx:latest
