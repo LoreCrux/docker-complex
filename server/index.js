@@ -28,8 +28,11 @@ pgClient.on("connect", (client) => {
 // Redis Client Setup
 const redis = require("redis");
 const redisClient = redis.createClient({
-  url: `redis://${keys.redisHost}:${keys.redisPort}`,
-  retry_strategy: () => 1000,
+  socket: {
+    host: keys.redisHost,
+    port: keys.redisPort,
+    reconnectStrategy: () => 1000,
+  },
 });
 const redisPublisher = redisClient.duplicate();
 
@@ -52,6 +55,7 @@ app.get("/values/all", async (req, res) => {
 
 app.get("/values/current", async (req, res) => {
   const values = await redisClient.hGetAll("values");
+  res.send(values);
   res.send(values);
 });
 
