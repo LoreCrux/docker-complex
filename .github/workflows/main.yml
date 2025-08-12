@@ -46,3 +46,18 @@ jobs:
           docker push $DOCKER_USERNAME/multi-server:latest
           docker push $DOCKER_USERNAME/multi-worker:latest
           docker push $DOCKER_USERNAME/multi-nginx:latest
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Deploy to EB
+        uses: tylerdurham/beanstalk-deploy@v1
+        with:
+          aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
+          aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
+          application_name: multi-docker
+          environment_name: Multi-docker-env
+          existing_bucket_name: elasticbeanstalk-us-west-2-879117612842
+          region: us-west-2
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
